@@ -1,0 +1,22 @@
+backend php artisan tinker
+Psy Shell v0.11.22 (PHP 8.2.11 — cli) by Justin Hileman
+> $user = new App\Models\User;
+$user->name = 'Mohammad';
+$user->email = 'shamchimohammad@gmail.com';
+$user->password = Hash::make('1234');
+$user->save();
+= App\Models\User {#6268}
+
+> $user->name = 'Mohammad';
+= "Mohammad"
+
+> $user->email = 'shamchimohammad@gmail.com';
+= "shamchimohammad@gmail.com"
+
+> $user->password = Hash::make('1234');
+= "$2y$12$hjsJzEbvanMXIzohdaLuvOZCe0nEy/5i.unhfP6mk5xkO3o2Ul4VO"
+
+> $user->save();
+= true
+
+>
