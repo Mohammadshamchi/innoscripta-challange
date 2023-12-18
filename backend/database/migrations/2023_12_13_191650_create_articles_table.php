@@ -1,17 +1,19 @@
 <?php
-// Example migration for the articles table
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateArticlesTable extends Migration
-{
+return new class extends Migration {
     public function up()
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->string('title'); // Ensure this line exists
-            $table->text('content'); // Ensure this line exists
+            $table->string('title');
+            $table->text('description');
+            $table->string('url');
+            $table->string('source');
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
     }
@@ -20,4 +22,4 @@ class CreateArticlesTable extends Migration
     {
         Schema::dropIfExists('articles');
     }
-}
+};

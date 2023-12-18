@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
@@ -22,24 +23,39 @@ class UserController extends Controller
     {
         return response()->json(auth()->user()->only(['preferred_sources', 'preferred_categories', 'preferred_authors']));
     }
-        public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
 
-        if (Auth::attempt($request->only('email', 'password'))) {
-            $request->session()->regenerate();
+    public function login(Request $request)
+{
+    $loginData = $request->validate([
+        'email' => 'email|required',
+        'password' => 'required'
+    ]);
 
-            return response()->json([
-                'message' => 'Login successful',
-                'user' => Auth::user()
-            ]);
-        }
-
-        throw ValidationException::withMessages([
-            'email' => ['The provided credentials are incorrect.'],
-        ]);
+    if (!auth()->attempt($loginData)) {
+        return response(['message' => 'Invalid Credentials'], 401);
     }
+
+    $accessToken = auth()->user()->createToken('authToken')->accessToken;
+
+    return response(['user' => auth()->user(), 'access_token' => $accessToken]);
+}
+
+
+public function register(Request $request) {
+    $validatedData = $request->validate([
+        'name' => 'required|max:55',
+        'email' => 'email|required|unique:users',
+        'password' => 'required|confirmed'
+    ]);
+
+    $validatedData['password'] = bcrypt($request->password);
+
+    $user = User::create($validatedData);
+
+    $accessToken = $user->createToken('authToken')->accessToken;
+
+    return response(['user' => $user, 'access_token' => $accessToken]);
+}
+
+
 }

@@ -6,12 +6,14 @@ use Illuminate\Support\Facades\Auth;
 
 class UserPreferenceController extends Controller
 {
-    public function update(Request $request)
+public function update(Request $request)
     {
-        $user = Auth::user();
-        $user->preferred_sources = $request->input('preferred_sources');
-        $user->preferred_categories = $request->input('preferred_categories');
-        $user->preferred_authors = $request->input('preferred_authors');
+        $user = auth()->user();
+
+        $user->preferred_sources = $request->input('preferred_sources', []);
+        $user->preferred_categories = $request->input('preferred_categories', []);
+        $user->preferred_authors = $request->input('preferred_authors', []);
+
         $user->save();
 
         return response()->json(['message' => 'Preferences updated successfully']);

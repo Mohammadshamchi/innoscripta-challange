@@ -30,4 +30,18 @@ class ArticleController extends Controller
         $articles = $query->get();
         return response()->json($articles);
     }
+
+    public function search(Request $request)
+    {
+        // Validate the search query
+        $searchTerm = $request->query('term');
+
+        // Perform search logic, for example using Eloquent's `where` method
+        $articles = Article::where('title', 'LIKE', '%' . $searchTerm . '%')->get();
+
+        return response()->json($articles);
+    }
+
 }
+
+
