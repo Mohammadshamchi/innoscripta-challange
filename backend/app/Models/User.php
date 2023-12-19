@@ -32,7 +32,7 @@ class User extends Authenticatable
         'preferred_authors' => 'array',
     ];
 
-    // If you want to ensure passwords are always hashed when set, you can use a mutator:
+
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);

@@ -36,3 +36,5 @@ Route::middleware('auth:api')->group(function () {
 Route::get('/articles', [ArticleController::class, 'index']);
 Route::get('/articles/search', [ArticleController::class, 'search']);
 Route::post('/preferences', [UserPreferenceController::class, 'update']);
+
+
