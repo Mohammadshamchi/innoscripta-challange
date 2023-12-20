@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function updatePreferences(Request $request)
-    {
+    public function updatePreferences(Request $request){
+
         $user = auth()->user();
         $user->preferred_sources = $request->input('preferred_sources');
         $user->preferred_categories = $request->input('preferred_categories');
@@ -57,5 +57,15 @@ public function register(Request $request) {
     return response(['user' => $user, 'access_token' => $accessToken]);
 }
 
+// File: app/Http/Controllers/UserController.php
+
+public function checkUserExists(Request $request)
+{
+    $email = $request->input('email');
+
+    $userExists = User::where('email', $email)->exists();
+
+    return response()->json(['userExists' => $userExists]);
+}
 
 }

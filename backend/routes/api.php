@@ -16,10 +16,8 @@ use App\Http\Controllers\UserPreferenceController;
 |
 */
 
-// Route::post('/login', [UserController::class, 'login'])->name('login');
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
-
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -38,3 +36,6 @@ Route::get('/articles/search', [ArticleController::class, 'search']);
 Route::post('/preferences', [UserPreferenceController::class, 'update']);
 
 
+// File: routes/api.php
+
+Route::post('/check-user-exists', [UserController::class, 'checkUserExists']);

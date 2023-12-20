@@ -17,4 +17,3 @@ Route::get('/', function () {
     return view('welcome');
 });
 // Inside routes/api.php
-Route::post('/login', 'AuthController@login')->name('login');
